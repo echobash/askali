@@ -15,9 +15,9 @@ def home():
 
     # Expanded profile context to ensure responses stay within expertise
     profile_context = """
-        Ali is a **highly skilled Backend Engineer** with over **6 years of experience** in building scalable systems, 
-        **FinTech payment automation**, AI-driven solutions, and cybersecurity. He has worked on complex projects in both 
-        **FinTech and EdTech**, ensuring high-performance and secure backend architectures.
+        Ali is a **highly skilled Backend Engineer** with over **6 years of experience** in building scalable systems,
+        **FinTech payment automation**, AI-driven solutions, and cybersecurity. He has worked on complex projects in both
+        **FinTech and EdTech**, ensuring high-performance and secure backend architectures. He's seeking opportunities in a reputed organization for mutual growth.
 
         **Key Achievements:**
         - Scaled FinTech payment automation systems from **$0 to $5M+ transactions** in under a year.
@@ -32,17 +32,42 @@ def home():
         - **Cloud & DevOps:** AWS, Heroku, Git, Postman, Laravel Telescope
         - **AI & ML Tools:** ChatGPT API, Claude API, OpenAI API, TensorFlow
         - **System Design:** Strong understanding of **LLD (Low-Level Design) & HLD (High-Level Design)**, automation, and backend optimization.
-        
-        **Past Companies:**
-        - Zomentum (FinTech Payments Automation and Reconciliation) (2022-2025)
-        - Collegedunia (EdTech College Search Domain) (2021-2022)
-        - Chaptervitamins (EdTech LMS) (2019-2021)
+
+        **Work Experience:**
+        - **Senior Software Engineer, Zomentum (FinTech Payments Automation and Reconciliation) (03/2022 - Present):** Worked as a core developer in FinTech Domain in the development of Zomentum Payments using Laravel, automating recurring payment collections and simplifying payment processes through integration with existing accounting software. Assisted in integrating third Party Provider Adyen for Platforms for seamless payment processing, enabling launch in the US and UK with support for major credit card and Direct Debit schemes.  Contributed to scaling payment transactions from $0 to $5M+ in under a year and supported initial client onboarding alongside Customer Success and Sales teams. Worked on workflow improvements, boosting test coverage from 30% to 88% and significantly reducing regression bugs in new releases Located in Bengaluru.
+        - **Software Engineer, Collegedunia (EdTech College Search Domain) (07/2021 - 03/2022):** Redesigned and redeveloped existing web pages in the EdTech domain to enhance security, ensuring a robust system resistant to web vulnerabilities such as SQL Injection and Cross-Site Scripting, thereby strengthening the organization's defense against external attacks. Restructed the code and minimized DB calls in the existing System.  Located in Gurugram.
+        - **Software Engineer, Chapter Vitamins (EdTech LMS) (08/2018 - 07/2021):** Made a complete survey system module for the organization. In this survey links are sent on email and sms and users take survey and there responses and captured in DB and reports are sent to their managers. Automated the frequently rendered reports saving organization's time and cost. Located in Gurugram.
 
         **Education & Achievements:**
-        - Graduated from **NIT Hamirpur (Tier-1 Engineering Institute)** with a solid foundation in **Computer Science & problem-solving**.
-        - Secured **JEE Mains AIR 8068**, ranking in the **top 1% nationwide**.
+        - Graduated from **NIT Hamirpur (Tier-1 Engineering Institute)** with a solid foundation in **Computer Science & problem-solving**. B.Tech in Computer Science and Engineering (2014-2018). Achieved a CGPA of 7.1
+        - Secured **JEE Mains AIR 8068**, ranking in the **top 1% nationwide**. Second Rank Opener in college.
         - Active **open-source contributor** building automation tools for developers. Projects are available on Echobash.
         - Volunteered in **NIT-H Literacy Mission**, a student-led initiative educating underprivileged children.
+
+        **Home:**
+        - I belong from Bihar but I'm staying in Gurugram from 7 years.
+        
+        **Skills:**
+        DATABASES: MySQL, MongoDB, Redis
+        FRAMEWORKS: Django, Laravel, Livewire, Codeigniter, Alpine.js
+        SEARCH ENGINES: ElasticSearch
+        QUEUES: RabbitMQ
+        LANGUAGE: PHP, Python, Bash
+        CLOUD: AWS, GCP, Heroku
+        TOOLS: Postman, Git, Tinkerwell, Telescope
+
+        **Interests:**
+        - Playing Table Tennis
+        - Working out
+        - Reading Tech blogs
+        - Singing Song
+        - Learning Foreign languages (currently speak english, hindi and spanish and learning indonesian, korean and Norwegian")
+        - Reading Book
+        - Learning Languages
+        - Reading Tech Blogs
+        - Networking
+        - Shell Scripting
+        - Cybersecurity
 
         **Work Ethic & Team Collaboration:**
         - Strong communicator, works closely with **Customer Success & Sales teams** to improve client onboarding.
@@ -50,14 +75,7 @@ def home():
         - Passionate about **developer-first solutions**, automation, and cybersecurity.
         - I'm a backend developer but i have some hands on frontend too. (My profile is backend-heavy)
         Always focused on **delivering impactful backend solutions**, optimizing performance, and securing systems against threats.
-        
-        **Hobbies**
-        - Playing Table Tennis
-        - Working out
-        - Reading Tech blogs
-        - Singing Song
-        - Learning Foreign languages (currently speak english, hindi and spanish and learning indonesian, korean and Norwegian"
-        
+
         """
 
     # Constructing the prompt for a conversational chatbot experience
@@ -72,7 +90,6 @@ def home():
         If asked about an interesting thing about me that i love learning foreign languages currently speak english, hindi and spanish and learning indonesian, korean and Norwegian"
         Give responses with maximum two sentences.
         :"""
-
 
     url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key={api_key}"
 
