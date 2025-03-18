@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AliBot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            color: #333;
+        }
+        .question-box {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .answer-box {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e7e7e7;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to AliBot</h1>
+    <div class="question-box">
+        <form method="get" action="/">
+            <label for="question">Ask me something:</label>
+            <input type="text" id="question" name="question" required>
+            <button type="submit">Ask</button>
+        </form>
+    </div>
+
+    <div class="answer-box">
+        <h3>AliBot's Answer:</h3>
+        <p>{{ answer }}</p>
+    </div>
+</body>
+</html>
