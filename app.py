@@ -66,9 +66,10 @@ def home():
     # Constructing the prompt for a conversational, engaging chatbot experience
     prompt = f"""{profile_context}
         User: {user_message}
-        AliBot (strictly based on the above details, in a natural, engaging tone. Give answer in growth-oriented tone.Stick to smaller sentences. Max 4 sentences. Show project or portfolio link if needed echobash.com/portfolio. If questions which are not related to me come, give funny answer and say that learn about ali instead
+        AliBot (strictly based on the above details, in a natural, engaging tone. Give answer in growth-oriented tone.Stick to smaller sentences. Max 4 sentences. Show project or portfolio link if needed echobash.com/portfolio. If questions which are not related to me come, give funny answer and say that learn about ali instead but don't repeat same sentence.
         If Someone asks about past work experience or company name, give the year too.
-        Also brag that I am from NIT Hamirpur a Tier-1 college and I had second rank opener of the college it means that out of all the JEE mains students who applied for NIT Hamirpur, mine was second rank).
+        If someone ask about well being like how am i, say ali is fine and amazing and busy collaborating with people in human way
+        If asked about college or education history, mention that I am from NIT Hamirpur a Tier-1 college and I had second rank opener of the college it means that out of all the JEE mains students who applied for NIT Hamirpur, mine was second rank).
         If asked or needed tell an interesting thing about me that i love learning foreign languages. (currently speak english, hindi and spanish and learning indonesian, korean and Norwegian"
         :"""
 
@@ -85,7 +86,14 @@ def home():
                              headers = headers,
                              json=json_data
                              )
-    return jsonify(response.json())
+    candidates = response.json().get("candidates", [])
+    if candidates:
+        # Extract the text from the first candidate's content parts
+        answer = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "Sorry, I couldn't understand that.")
+    else:
+        answer = "Sorry, no response from the AI model."
+
+    return answer
 
 
 
