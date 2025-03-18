@@ -1,5 +1,4 @@
-from flask import Flask, jsonify, request
-import requests
+from flask import Flask, render_template_string, request
 from dotenv import load_dotenv
 import os
 import requests
@@ -86,6 +85,7 @@ def home():
                              headers = headers,
                              json=json_data
                              )
+    html_response=""
     candidates = response.json().get("candidates", [])
     if candidates:
         # Extract the text from the first candidate's content parts
@@ -93,7 +93,82 @@ def home():
     else:
         answer = "Sorry, no response from the AI model."
 
-    return answer
+    # HTML and CSS design for a better experience
+    html_response = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AliBot - Chatbot</title>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: #f5f5f5;
+            }}
+            .container {{
+                background-color: #fff;
+                border-radius: 10px;
+                width: 80%;
+                max-width: 800px;
+                box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+                padding: 30px;
+            }}
+            h1 {{
+                text-align: center;
+                color: #333;
+                font-size: 2rem;
+            }}
+            .question-box {{
+                background-color: #e6e6e6;
+                border-radius: 5px;
+                padding: 15px;
+                margin-bottom: 20px;
+                font-size: 1.2rem;
+                color: #555;
+                font-weight: bold;
+            }}
+            .answer-box {{
+                background-color: #f1f1f1;
+                border-radius: 5px;
+                padding: 15px;
+                font-size: 1.1rem;
+                color: #333;
+                border-left: 5px solid #007BFF;
+            }}
+            .footer {{
+                text-align: center;
+                margin-top: 30px;
+                font-size: 0.9rem;
+                color: #777;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>AliBot: Chat with me!</h1>
+            <div class="question-box">
+                <strong>Your Question:</strong> {user_message}
+            </div>
+            <div class="answer-box">
+                <strong>AliBot's Answer:</strong> {answer}
+            </div>
+            <div class="footer">
+                <p>Powered by <a href="https://echobash.com/portfolio" target="_blank">Echobash</a></p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+
+    return render_template_string(html_response)
 
 
 
