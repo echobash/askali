@@ -147,19 +147,15 @@
 
         <!-- Chat Messages Box -->
         <div class="message-box">
-            <!-- Display previous user question -->
-            {% if request.args.get('question') %}
+            <!-- Loop through conversation history -->
+            {% for message in conversation %}
                 <div class="message user-message">
-                    {{ request.args.get('question') }}
+                    {{ message['user'] }}
                 </div>
-            {% endif %}
-
-            <!-- Display bot's answer -->
-            {% if answer %}
                 <div class="message bot-message">
-                    {{ answer }}
+                    {{ message['bot'] }}
                 </div>
-            {% endif %}
+            {% endfor %}
         </div>
 
         <!-- Input Box -->

@@ -1,15 +1,19 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from dotenv import load_dotenv
 import os
 import requests
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)  # Required for using session
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 
 
 @app.route("/", methods=['GET'])
 def home():
+    # Initialize conversation history in session if not present
+    if 'conversation' not in session:
+        session['conversation'] = []
     question = request.args.get('question', "who are you?")
     user_message = question
 
@@ -47,6 +51,9 @@ def home():
         **Home:**
         - I belong from Bihar but I'm staying in Gurugram from 7 years.
         
+        **Expectation from New job:**
+        - Open to relocation
+        
         **Skills:**
         DATABASES: MySQL, MongoDB, Redis
         FRAMEWORKS: Django, Laravel, Livewire, Codeigniter, Alpine.js
@@ -83,12 +90,15 @@ def home():
     # Constructing the prompt for a conversational, engaging chatbot experience
     prompt = f"""{profile_context}
         User: {user_message}
-        AliBot (strictly based on the above details, in a natural, engaging tone. Give answer in growth-oriented tone.Stick to smaller sentences. Max 2 sentences. Show project or portfolio link if needed echobash.com/portfolio. If questions which are not related to me come, give funny answer and say that learn about ali instead but don't repeat same sentence.
+        AliBot (strictly based on the above details, in a natural, engaging tone. Give answer in growth-oriented tone.Stick to smaller sentences. Max 2 sentences. Show project or portfolio link if needed echobash.com/portfolio. 
         If Someone asks about past work experience or company name, give the year too.
         If someone ask about well being like how am i, say ali is fine and amazing and busy collaborating with people in human way
         If asked about college or education history, mention that I am from NIT Hamirpur a Tier-1 college and I had second rank opener of the college it means that out of all the JEE mains students who applied for NIT Hamirpur, mine was second rank).
         If asked about an interesting thing about me that i love learning foreign languages currently speak english, hindi and spanish and learning indonesian, korean and Norwegian"
         Give responses with maximum two sentences.
+        If asked about current and expected salary mention humbly as human that I can't disclose current and expected CTC. Let's connect and discuss.
+        If questions which are not related to me are asked,tell them it's beyond your current expertise e.g if the user asks to write table of 7, don't write it just say that it's beyond your current expertise but in a human and warm way. same for question like president,prime minister etc
+        If someone asks that who developed this bot, mention Ali Anwar and share my portfolio link
         :"""
 
     url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key={api_key}"
@@ -111,7 +121,10 @@ def home():
     else:
         answer = "Sorry, no response from the AI model."
 
-    return render_template('chatbot.html', answer=answer)
+    session['conversation'].append({'user': question, 'bot': answer})
+    session.modified = True  # Important: Tell Flask the session has changed
+
+    return render_template('chatbot.html', conversation=session['conversation'])
 
 
 
