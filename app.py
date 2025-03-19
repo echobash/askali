@@ -142,23 +142,3 @@ def home():
     session.modified = True  # Important: Tell Flask the session has changed
 
     return render_template('chatbot.html', conversation=session['conversation'])
-
-
-
-@app.route("/about")
-def about_me():
-    API_KEY = os.getenv("GEMINI_API_KEY")
-    url = f"https://generativelanguage.googleapis.com/v1/models?key={API_KEY}"
-
-    response = requests.get(url)
-    print(response.json())
-    return "<h1>This is all about meee</h1>"
-
-
-@app.route("/blog")
-def blog():
-    return "<marquee>Blog is here</marquee>"
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
